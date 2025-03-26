@@ -28,12 +28,21 @@ class RocketView extends StatelessWidget {
                   margin: EdgeInsets.all(10),
                   child: Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          rocket.images.isNotEmpty ? rocket.images[0] : '',
-                          fit: BoxFit.contain,
-                          height: 250,
+                      Container(
+                        foregroundDecoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.transparent, Colors.black54],
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            rocket.images.isNotEmpty ? rocket.images[0] : '',
+                            fit: BoxFit.contain,
+                            height: 250,
+                          ),
                         ),
                       ),
                       Positioned(
@@ -58,7 +67,12 @@ class RocketView extends StatelessWidget {
                                 color:
                                     rocket.activeStatus
                                         ? Colors.green
-                                        : const Color.fromARGB(255, 231, 70, 58),
+                                        : const Color.fromARGB(
+                                          255,
+                                          231,
+                                          70,
+                                          58,
+                                        ),
                               ),
                               child: Text(
                                 rocket.activeStatus ? 'Active' : 'Inactive',
