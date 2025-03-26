@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacex_app/controllers/rocket_controller.dart';
 import 'package:spacex_app/models/rockets.dart';
-import 'package:spacex_app/views/rockets_screen.dart';
+import 'package:spacex_app/views/rockets_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,9 +32,25 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        centerTitle: true,
+        leading: Image.asset('assets/images/icon.png'),
         backgroundColor: Colors.black12,
       ),
-      body: RocketView(rockets: rockets),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Rockets',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Divider(color: Colors.white, height: 2),
+          Flexible(child: RocketView(rockets: rockets)),
+        ],
+      ),
     );
   }
 }
