@@ -34,6 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         leading: Image.asset('assets/images/icon.png'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh, color: Colors.white,),
+            onPressed: () {
+              setState(() {
+                rockets = RocketController.fetchRockets();
+              });
+            },
+          ),
+        ],
         backgroundColor: Colors.black12,
       ),
       body: Column(
