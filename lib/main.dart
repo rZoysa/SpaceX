@@ -13,7 +13,24 @@ class SpaceXApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SpaceX Info',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.light(
+          primary: Colors.white,
+          surface: Colors.grey[200]!,
+          onSurface: Colors.black,
+          onSurfaceVariant: Colors.grey[800]!,
+        ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.dark(
+          primary: Colors.black,
+          surface: Colors.black,
+          onSurface: Colors.white,
+          onSurfaceVariant: Colors.grey[500]!,
+        ),
+      ),
       home: SplashScreen(),
     );
   }

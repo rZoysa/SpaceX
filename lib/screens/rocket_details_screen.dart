@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:spacex_app/components/component_row.dart';
 import '../models/rockets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,12 +11,23 @@ class RocketDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textColor = colorScheme.onSurface; // Adapts to dark/light mode
+
     return Scaffold(
-      appBar: AppBar(title: Text(rocket.name)),
+      backgroundColor: colorScheme.surface, // Adapt to theme
+      appBar: AppBar(
+        title: Text(rocket.name, style: TextStyle(color: textColor)),
+        elevation: 10,
+        backgroundColor: colorScheme.surface,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 10),
+
             // Image Slider
             CarouselSlider(
               options: CarouselOptions(
@@ -23,16 +35,26 @@ class RocketDetailsScreen extends StatelessWidget {
                 autoPlay: true,
                 enlargeCenterPage: true,
               ),
-              items: rocket.images.map((imageUrl) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                );
-              }).toList(),
+              items:
+                  rocket.images.map((imageUrl) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        imageUrl,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) => 
+                            loadingProgress == null
+                                ? child
+                                : Center(
+                                    child: CircularProgressIndicator(
+                                      color: colorScheme.onSurface,
+                                      
+                                    ),
+                                  ),
+                      ),
+                    );
+                  }).toList(),
             ),
 
             SizedBox(height: 20),
@@ -43,22 +65,41 @@ class RocketDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DetailRow(label: "Cost per launch", value: "\$${rocket.costPerLaunch}"),
-                  DetailRow(label: "Success rate", value: "${rocket.successRate}%"),
+                  DetailRow(
+                    label: "Cost per launch",
+                    value: "\$${rocket.costPerLaunch}",
+                  ),
+                  DetailRow(
+                    label: "Success rate",
+                    value: "${rocket.successRate}%",
+                  ),
                   DetailRow(label: "First flight", value: rocket.firstFlight),
                   DetailRow(label: "Height", value: "${rocket.heightMeters} m"),
-                  DetailRow(label: "Diameter", value: "${rocket.diameterMeters} m"),
+                  DetailRow(
+                    label: "Diameter",
+                    value: "${rocket.diameterMeters} m",
+                  ),
                   DetailRow(label: "Mass", value: "${rocket.massKg} kg"),
 
                   SizedBox(height: 20),
-                  
+
                   // Description
                   Text(
-                    "Description",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    "About ${rocket.name}",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: textColor, // Adapts to theme
+                    ),
                   ),
                   SizedBox(height: 5),
-                  Text(rocket.description, style: TextStyle(fontSize: 16)),
+                  Text(
+                    rocket.description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
 
                   SizedBox(height: 20),
 
@@ -69,7 +110,10 @@ class RocketDetailsScreen extends StatelessWidget {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.blue,
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
                       ),
                       child: Text("Read More on Wikipedia"),
                     ),
@@ -85,32 +129,12 @@ class RocketDetailsScreen extends StatelessWidget {
 
   // Function to open Wikipedia link
   void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (url.isEmpty) return;
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
-  }
-}
-
-// Widget for displaying a detail row
-class DetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const DetailRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          Text(value, style: TextStyle(fontSize: 16)),
-        ],
-      ),
-    );
   }
 }
