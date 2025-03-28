@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:spacex_app/components/component_row.dart';
+import 'package:spacex_app/components/detail_row.dart';
 import '../models/rockets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
