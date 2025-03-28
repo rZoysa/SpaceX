@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:spacex_app/controllers/rocket_controller.dart';
 import 'package:spacex_app/models/rockets.dart';
 import 'package:spacex_app/views/rockets_view.dart';
@@ -21,22 +22,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
         title: Text(
           'SpaceX Explorer',
           style: TextStyle(
-            color: Colors.white,
+            color: colorScheme.onSurface,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
-        leading: Image.asset('assets/images/icon.png'),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 4),
+          child: SvgPicture.asset(
+            'assets/images/icon.svg',
+            colorFilter: ColorFilter.mode(
+              colorScheme.onSurface,
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh, color: Colors.white,),
+            icon: Icon(Icons.refresh, color: colorScheme.onSurface),
             onPressed: () {
               setState(() {
                 rockets = RocketController.fetchRockets();
@@ -44,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
-        backgroundColor: Colors.black12,
+        backgroundColor: colorScheme.surface,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,12 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
           Text(
             'Rockets',
             style: TextStyle(
-              color: Colors.white,
+              color: colorScheme.onSurface,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Divider(color: Colors.white, height: 2),
+          Divider(color: colorScheme.onSurface, height: 2),
           Flexible(child: RocketView(rockets: rockets)),
         ],
       ),

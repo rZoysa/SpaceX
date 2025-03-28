@@ -18,7 +18,11 @@ class RocketDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface, // Adapt to theme
       appBar: AppBar(
-        title: Text(rocket.name, style: TextStyle(color: textColor)),
+        centerTitle: true,
+        title: Text(
+          rocket.name,
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+        ),
         elevation: 10,
         backgroundColor: colorScheme.surface,
       ),
@@ -43,15 +47,15 @@ class RocketDetailsScreen extends StatelessWidget {
                         imageUrl,
                         width: double.infinity,
                         fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) => 
-                            loadingProgress == null
-                                ? child
-                                : Center(
-                                    child: CircularProgressIndicator(
-                                      color: colorScheme.onSurface,
-                                      
+                        loadingBuilder:
+                            (context, child, loadingProgress) =>
+                                loadingProgress == null
+                                    ? child
+                                    : Center(
+                                      child: CircularProgressIndicator(
+                                        color: colorScheme.onSurface,
+                                      ),
                                     ),
-                                  ),
                       ),
                     );
                   }).toList(),
@@ -108,8 +112,8 @@ class RocketDetailsScreen extends StatelessWidget {
                     child: TextButton(
                       onPressed: () => _launchURL(rocket.wikipedia),
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.blue,
+                        foregroundColor: colorScheme.primary,
+                        backgroundColor: colorScheme.onSurface,
                         padding: EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 10,
