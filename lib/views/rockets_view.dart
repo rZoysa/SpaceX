@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+import 'package:spacex_app/screens/rocket_details_screen.dart';
 
 import '../models/rockets.dart';
 
@@ -18,18 +19,24 @@ class RocketView extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
-          return GestureDetector(
-            onTap: () {
-              Logger().f('Rocket tapped');
-            },
-            child: SizedBox(
-              height: 250,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  Rocket rocket = snapshot.data![index];
-                  return Container(
+          return SizedBox(
+            height: 250,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                Rocket rocket = snapshot.data![index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder:
+                            (context) => RocketDetailsScreen(rocket: rocket),
+                      ),
+                    );
+                  },
+                  child: Container(
                     margin: EdgeInsets.all(10),
                     child: Stack(
                       children: [
@@ -88,9 +95,9 @@ class RocketView extends StatelessWidget {
                         ),
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           );
         }
