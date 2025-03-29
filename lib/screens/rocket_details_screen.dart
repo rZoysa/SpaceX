@@ -137,9 +137,8 @@ class RocketDetailsScreen extends StatelessWidget {
   void _launchURL(String url) async {
     if (url.isEmpty) return;
     final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
+
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $url';
     }
   }

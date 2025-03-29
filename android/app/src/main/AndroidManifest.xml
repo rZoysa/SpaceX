@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <application
         android:label="SpaceX Explorer"
@@ -42,6 +43,10 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="http" />
+            <data android:scheme="https" />
             <data android:mimeType="text/plain" />
         </intent>
     </queries>
