@@ -85,7 +85,7 @@ class RocketDetailsScreen extends StatelessWidget {
                     label: "Diameter",
                     value: "${rocket.diameterMeters} m",
                   ),
-                  DetailRow(label: "Mass", value: "${rocket.massKg} kg"),
+                  DetailRow(label: "Mass", value: "${NumberFormat("#,##0").format(rocket.massKg)} kg"),
 
                   SizedBox(height: 20),
 
