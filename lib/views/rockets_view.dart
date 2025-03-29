@@ -46,6 +46,7 @@ class RocketView extends StatelessWidget {
                       children: [
                         Container(
                           foregroundDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
