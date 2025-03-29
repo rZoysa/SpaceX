@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spacex_app/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,8 +30,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(child: Image.asset('assets/images/logo.jpg')),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Center(
+        child: SvgPicture.asset(
+          'assets/images/logo.svg',
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.onSurface,
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
     );
   }
 }
