@@ -95,7 +95,7 @@ class RocketDetailsScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: textColor, // Adapts to theme
+                      color: textColor,
                     ),
                   ),
                   SizedBox(height: 5),
