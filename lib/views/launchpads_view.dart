@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spacex_app/models/launchpad.dart';
+import 'package:spacex_app/screens/launchpad_detail_screen.dart';
 
 class LaunchpadsView extends StatelessWidget {
   const LaunchpadsView({super.key, required this.launchpads});
@@ -30,7 +32,16 @@ class LaunchpadsView extends StatelessWidget {
               itemBuilder: (context, index) {
                 LaunchPad launchpad = snapshot.data![index];
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder:
+                            (context) =>
+                                LaunchpadDetailScreen(launchPad: launchpad),
+                      ),
+                    );
+                  },
                   child: Container(
                     margin: EdgeInsets.all(10),
                     child: Stack(
