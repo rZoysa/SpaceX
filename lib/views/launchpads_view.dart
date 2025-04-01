@@ -12,21 +12,21 @@ class LaunchpadsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return FutureBuilder<List<LaunchPad>>(
-      future: launchpads,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          return SizedBox(
-            height: 250,
-            child: ListView.builder(
+    return SizedBox(
+      height: 90,
+      child: FutureBuilder<List<LaunchPad>>(
+        future: launchpads,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
@@ -102,10 +102,10 @@ class LaunchpadsView extends StatelessWidget {
                   ),
                 );
               },
-            ),
-          );
-        }
-      },
+            );
+          }
+        },
+      ),
     );
   }
 }

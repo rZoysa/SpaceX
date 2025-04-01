@@ -11,21 +11,21 @@ class RocketView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Rocket>>(
-      future: rockets,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          return SizedBox(
-            height: 250,
-            child: ListView.builder(
+    return SizedBox(
+      height: 250,
+      child: FutureBuilder<List<Rocket>>(
+        future: rockets,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
@@ -103,10 +103,10 @@ class RocketView extends StatelessWidget {
                   ),
                 );
               },
-            ),
-          );
-        }
-      },
+            );
+          }
+        },
+      ),
     );
   }
 }

@@ -79,8 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Divider(color: colorScheme.onSurface, height: 2),
-          Flexible(child: RocketView(rockets: rockets)),
+          Divider(color: colorScheme.onSurface, height: 4),
+          RocketView(rockets: rockets),
+          SizedBox(height: 10),
           Padding(
             padding: EdgeInsets.only(left: 4),
             child: Text(
@@ -92,8 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Divider(color: colorScheme.onSurface, height: 2),
-          Flexible(child: LaunchpadsView(launchpads: launchpads)),
+
+          Divider(color: colorScheme.onSurface, height: 4),
+          LaunchpadsView(launchpads: launchpads),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.only(left: 4),
+            child: Text(
+              'Landing Pads',
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Divider(color: colorScheme.onSurface, height: 4),
         ],
       ),
     );
