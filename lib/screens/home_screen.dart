@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spacex_app/controllers/launchpad_controller.dart';
 import 'package:spacex_app/controllers/rocket_controller.dart';
+import 'package:spacex_app/models/launchpad.dart';
 import 'package:spacex_app/models/rockets.dart';
+import 'package:spacex_app/views/launchpads_view.dart';
 import 'package:spacex_app/views/rockets_view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,10 +16,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Rocket>> rockets;
+  late Future<List<LaunchPad>> launchpads;
 
   @override
   void initState() {
     rockets = RocketController.fetchRockets();
+    launchpads = LaunchPadController.fetchLaunchPads();
     super.initState();
   }
 
@@ -53,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               setState(() {
                 rockets = RocketController.fetchRockets();
+                launchpads = LaunchPadController.fetchLaunchPads();
               });
             },
           ),
@@ -75,6 +81,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Divider(color: colorScheme.onSurface, height: 2),
           Flexible(child: RocketView(rockets: rockets)),
+          Padding(
+            padding: EdgeInsets.only(left: 4),
+            child: Text(
+              'Launch Pads',
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Divider(color: colorScheme.onSurface, height: 2),
+          Flexible(child: LaunchpadsView(launchpads: launchpads)),
         ],
       ),
     );
