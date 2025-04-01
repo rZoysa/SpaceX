@@ -64,6 +64,13 @@ class LaunchpadDetailScreen extends StatelessWidget {
                     value: launchPad.successfulLaunches,
                   ),
 
+                  DetailRow(
+                    label: "Launched Vehicles",
+                    value: launchPad.launchedVehicles
+                        .map((vehicle) => vehicle.toString())
+                        .join('\n'),
+                  ),
+
                   SizedBox(height: 20),
 
                   // Description
@@ -103,7 +110,9 @@ class LaunchpadDetailScreen extends StatelessWidget {
                   ),
                   Center(
                     child: TextButton(
-                      onPressed: () => _launchURL(launchPad.wikipedia),
+                      onPressed:
+                          () =>
+                              _openMap(launchPad.latitude, launchPad.longitude),
                       style: TextButton.styleFrom(
                         foregroundColor: colorScheme.primary,
                         backgroundColor: colorScheme.onSurface,
@@ -131,6 +140,21 @@ class LaunchpadDetailScreen extends StatelessWidget {
 
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $url';
+    }
+  }
+
+  Future<void> _openMap(double latitude, double longitude) async {
+    final Uri googleMapsUrl = Uri.parse(
+      "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude",
+    );
+    final Uri appleMapsUrl = Uri.parse("maps://?q=$latitude,$longitude");
+
+    if (await canLaunchUrl(googleMapsUrl)) {
+      await launchUrl(googleMapsUrl);
+    } else if (await canLaunchUrl(appleMapsUrl)) {
+      await launchUrl(appleMapsUrl);
+    } else {
+      throw 'Could not launch map';
     }
   }
 }

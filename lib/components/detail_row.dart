@@ -19,7 +19,7 @@ class DetailRow extends StatelessWidget {
             label,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
           ),
-          Text(value, style: TextStyle(fontSize: 16, color: textColor)),
+          Text(value, style: TextStyle(fontSize: 16, color: textColor), textAlign: TextAlign.end,),
         ],
       ),
     );
