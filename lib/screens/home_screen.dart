@@ -1,7 +1,6 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:logger/web.dart';
 import 'package:provider/provider.dart';
 import 'package:spacex_app/providers/data_handler_provider.dart';
 import 'package:spacex_app/views/landingpads_view.dart';
@@ -69,12 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             triggerMode: IndicatorTriggerMode.onEdge,
             onStateChanged: (change) {
-              Logger().f(change.currentState);
               if (change.currentState == IndicatorState.armed) {
                 Vibration.vibrate(duration: 70);
               }
             },
-            durations: RefreshIndicatorDurations(completeDuration: Durations.extralong2),
+            durations: RefreshIndicatorDurations(
+              completeDuration: Durations.extralong2,
+            ),
             builder: (context, child, controller) {
               return Stack(
                 alignment: Alignment.topCenter,
