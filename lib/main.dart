@@ -28,7 +28,7 @@ class SpaceXApp extends StatelessWidget {
           primary: Colors.black,
           surface: Colors.black,
           onSurface: Colors.white,
-          onSurfaceVariant: Colors.grey[500]!,
+          onSurfaceVariant: Colors.grey[600]!,
         ),
       ),
       home: SplashScreen(),

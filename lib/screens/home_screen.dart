@@ -1,5 +1,7 @@
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:logger/web.dart';
 import 'package:spacex_app/controllers/landpad_controller.dart';
 import 'package:spacex_app/controllers/launchpad_controller.dart';
 import 'package:spacex_app/controllers/rocket_controller.dart';
@@ -71,52 +73,94 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: colorScheme.surface,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 4),
-            child: Text(
-              'Rockets',
-              style: TextStyle(
-                color: colorScheme.onSurface,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: CustomRefreshIndicator(
+        onRefresh: () async {
+          Logger().f('message');
+          return;
+        },
+        triggerMode: IndicatorTriggerMode.onEdge,
+        builder: (context, child, controller) {
+          return Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              //Rocket Indicator
+              Positioned(
+                top: 5 * controller.value,
+                child: Opacity(
+                  opacity: controller.value.clamp(0.0, 1.0),
+                  child: Transform.translate(
+                    offset: Offset(0, 10 * controller.value),
+                    child: SvgPicture.asset(
+                      'assets/images/rocket.svg',
+                      height: 50,
+                      colorFilter: ColorFilter.mode(
+                        colorScheme.onSurfaceVariant,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Divider(color: colorScheme.onSurface, height: 4),
-          RocketView(rockets: rockets),
-          SizedBox(height: 10),
-          Padding(
-            padding: EdgeInsets.only(left: 4),
-            child: Text(
-              'Launch Pads',
-              style: TextStyle(
-                color: colorScheme.onSurface,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
 
-          Divider(color: colorScheme.onSurface, height: 4),
-          LaunchpadsView(launchpads: launchpads),
-          SizedBox(height: 10),
-          Padding(
-            padding: EdgeInsets.only(left: 4),
-            child: Text(
-              'Landing Pads',
-              style: TextStyle(
-                color: colorScheme.onSurface,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              /// **Moves the Content Down as User Pulls**
+              Transform.translate(
+                offset: Offset(0, 45 * controller.value),
+                child: child,
               ),
-            ),
+            ],
+          );
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 4),
+                child: Text(
+                  'Rockets',
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Divider(color: colorScheme.onSurface, height: 4),
+              RocketView(rockets: rockets),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.only(left: 4),
+                child: Text(
+                  'Launch Pads',
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              Divider(color: colorScheme.onSurface, height: 4),
+              LaunchpadsView(launchpads: launchpads),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.only(left: 4),
+                child: Text(
+                  'Landing Pads',
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Divider(color: colorScheme.onSurface, height: 4),
+              LandingpadsView(landPads: landPads),
+            ],
           ),
-          Divider(color: colorScheme.onSurface, height: 4),
-          LandingpadsView(landPads: landPads),
-        ],
+        ),
       ),
     );
   }
