@@ -2,6 +2,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:spacex_app/components/pop_menu.dart';
 import 'package:spacex_app/providers/data_handler_provider.dart';
 import 'package:spacex_app/views/landingpads_view.dart';
 import 'package:spacex_app/views/launchpads_view.dart';
@@ -52,39 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        actions: [
-          PopupMenuButton<String>(
-            color: colorScheme.surfaceContainerHighest,
-            icon: Icon(Icons.more_vert, color: colorScheme.onSurface),
-            onSelected: (String value) {
-              if (value == 'settings') {
-                // Navigate to settings screen
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-              } else if (value == 'about') {
-                // Show about dialog
-                showAboutDialog(
-                  context: context,
-                  applicationName: "SpaceX Explorer",
-                  applicationVersion: "1.0.0",
-                  applicationLegalese: "© 2024 SpaceX Explorer",
-                );
-              }
-            },
-            itemBuilder:
-                (BuildContext context) => [
-                  PopupMenuItem(
-                    value: 'settings',
-                    child: Row(
-                      children: [SizedBox(width: 10), Text('Settings')],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 'about',
-                    child: Row(children: [SizedBox(width: 10), Text('About')]),
-                  ),
-                ],
-          ),
-        ],
+        actions: [popMenu(colorScheme, context)],
         backgroundColor: colorScheme.surface,
       ),
       body: Consumer<DataHandlerProvider>(
@@ -189,4 +158,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 }
