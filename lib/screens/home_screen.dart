@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bool noContent =
               !contentProvider.showRockets &&
               !contentProvider.showLaunchPads &&
-              !contentProvider.showLaunchPads;
+              !contentProvider.showLandingPads;
 
           return noContent
               ? buildNoContentMessage(context)
