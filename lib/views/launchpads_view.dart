@@ -10,6 +10,7 @@ class LaunchpadsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return SizedBox(
@@ -52,15 +53,12 @@ class LaunchpadsView extends StatelessWidget {
                             gradient: LinearGradient(
                               colors:
                                   isDarkMode
-                                      ? [
-                                        Color.fromARGB(255, 197, 197, 197),
-                                        Color.fromARGB(255, 165, 165, 165),
-                                      ]
-                                      : [Color(0xFFE0E0E0), Color(0xFFBDBDBD)],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                                      ? [Colors.white12, Colors.white24]
+                                      : [Colors.black12, Colors.black26],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +66,7 @@ class LaunchpadsView extends StatelessWidget {
                               Text(
                                 launchpad.shortName,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: colorScheme.onSurface,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),

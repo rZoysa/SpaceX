@@ -10,6 +10,7 @@ class LandingpadsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return SizedBox(
@@ -52,15 +53,12 @@ class LandingpadsView extends StatelessWidget {
                             gradient: LinearGradient(
                               colors:
                                   isDarkMode
-                                      ? [
-                                        Color.fromARGB(255, 197, 197, 197),
-                                        Color.fromARGB(255, 165, 165, 165),
-                                      ]
-                                      : [Color(0xFFE0E0E0), Color(0xFFBDBDBD)],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                                      ? [Colors.white12, Colors.white24]
+                                      : [Colors.black12, Colors.black26],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +66,7 @@ class LandingpadsView extends StatelessWidget {
                               Text(
                                 landPad.id,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: colorScheme.onSurface,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -77,7 +75,7 @@ class LandingpadsView extends StatelessWidget {
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(6),
                                   color:
                                       landPad.status == 'retired'
                                           ? Colors.red[600]
