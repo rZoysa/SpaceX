@@ -25,6 +25,7 @@ class SpaceXApp extends StatelessWidget {
           brightness: Brightness.light,
           colorScheme: ColorScheme.light(
             primary: Colors.white,
+            secondary: Colors.grey[50]!,
             surface: Colors.grey[100]!,
             surfaceContainerHighest: Colors.grey[400],
             onSurface: Colors.black,
@@ -35,6 +36,7 @@ class SpaceXApp extends StatelessWidget {
           brightness: Brightness.dark,
           colorScheme: ColorScheme.dark(
             primary: Colors.black,
+            secondary: Colors.grey[50]!,
             surface: Colors.black,
             surfaceContainerHighest: Colors.grey[900],
             onSurface: Colors.white,

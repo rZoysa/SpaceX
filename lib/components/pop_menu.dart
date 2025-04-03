@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_app/components/custom_about_dialog.dart';
 import 'package:spacex_app/screens/settings_screen.dart';
 
 IconButton popMenu(ColorScheme colorScheme, BuildContext context) {
@@ -27,11 +28,9 @@ IconButton popMenu(ColorScheme colorScheme, BuildContext context) {
             value: 'about',
             child: Text('About'),
             onTap:
-                () => showAboutDialog(
+                () => showDialog(
                   context: context,
-                  applicationName: "SpaceX Explorer",
-                  applicationVersion: "1.0.0",
-                  applicationLegalese: "© 2024 SpaceX Explorer",
+                  builder: (context) => CustomAboutDialog(),
                 ),
           ),
         ],
@@ -39,3 +38,4 @@ IconButton popMenu(ColorScheme colorScheme, BuildContext context) {
     },
   );
 }
+
