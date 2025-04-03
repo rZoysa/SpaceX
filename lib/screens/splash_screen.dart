@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:spacex_app/providers/content_handler_provider.dart';
 import 'package:spacex_app/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,29 +20,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> initializeApp() async {
-    await _initializePreferences(); // Initialize preferences
+    Provider.of<ContentHandlerProvider>(
+      context,
+      listen: false,
+    ).loadPreferences(); // Initialize preferences
+
     await Future.delayed(Duration(seconds: 2));
-    
+
     if (!mounted) return;
 
     Navigator.pushReplacement(
       context,
       CupertinoPageRoute(builder: (context) => HomeScreen()),
     );
-  }
-
-  Future<void> _initializePreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    
-    if (!prefs.containsKey('showRockets')) {
-      await prefs.setBool('showRockets', true);
-    }
-    if (!prefs.containsKey('showLaunchPads')) {
-      await prefs.setBool('showLaunchPads', true);
-    }
-    if (!prefs.containsKey('showLandingPads')) {
-      await prefs.setBool('showLandingPads', true);
-    }
   }
 
   @override

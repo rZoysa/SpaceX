@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacex_app/providers/content_handler_provider.dart';
 import 'package:spacex_app/providers/data_handler_provider.dart';
 import 'package:spacex_app/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ class SpaceXApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DataHandlerProvider()),
+        ChangeNotifierProvider(create: (context) => ContentHandlerProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

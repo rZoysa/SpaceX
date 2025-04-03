@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:spacex_app/components/pop_menu.dart';
+import 'package:spacex_app/providers/content_handler_provider.dart';
 import 'package:spacex_app/providers/data_handler_provider.dart';
 import 'package:spacex_app/views/landingpads_view.dart';
 import 'package:spacex_app/views/launchpads_view.dart';
@@ -63,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
         backgroundColor: colorScheme.surface,
       ),
-      body: Consumer<DataHandlerProvider>(
-        builder: (context, provider, child) {
+      body: Consumer2<DataHandlerProvider, ContentHandlerProvider>(
+        builder: (context, dataProvider, contentProvider, child) {
           return CustomRefreshIndicator(
             onRefresh: () async {
-              provider.fetchData();
+              dataProvider.fetchData();
             },
             triggerMode: IndicatorTriggerMode.onEdge,
             onStateChanged: (change) {
@@ -115,54 +116,49 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 4),
-                    child: Text(
-                      'Rockets',
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Divider(color: colorScheme.onSurface, height: 4),
-                  RocketView(rockets: provider.rockets),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: EdgeInsets.only(left: 4),
-                    child: Text(
-                      'Launch Pads',
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  if (contentProvider.showRockets) ...[
+                    _buildSectionTitle('Rockets', context),
+                    RocketView(rockets: dataProvider.rockets),
+                    SizedBox(height: 10),
+                  ],
 
-                  Divider(color: colorScheme.onSurface, height: 4),
-                  LaunchpadsView(launchpads: provider.launchPads),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: EdgeInsets.only(left: 4),
-                    child: Text(
-                      'Landing Pads',
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Divider(color: colorScheme.onSurface, height: 4),
-                  LandingpadsView(landPads: provider.landPads),
+                  if (contentProvider.showLaunchPads) ...[
+                    _buildSectionTitle('Launch Pads', context),
+                    LaunchpadsView(launchpads: dataProvider.launchPads),
+                    SizedBox(height: 10),
+                  ],
+
+                  if (contentProvider.showLandingPads) ...[
+                    _buildSectionTitle('Landing Pads', context),
+                    LandingpadsView(landPads: dataProvider.landPads),
+                  ],
                 ],
               ),
             ),
           );
         },
       ),
+    );
+  }
+
+  // Helper method to build section titles
+  Widget _buildSectionTitle(String title, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 4),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Divider(color: Theme.of(context).colorScheme.onSurface, height: 4),
+      ],
     );
   }
 }
