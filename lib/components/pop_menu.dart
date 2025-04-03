@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:spacex_app/screens/settings_screen.dart';
 
-PopupMenuButton<String> popMenu(ColorScheme colorScheme, BuildContext context) {
-  return PopupMenuButton<String>(
-    color: colorScheme.surfaceContainerHighest,
+IconButton popMenu(ColorScheme colorScheme, BuildContext context) {
+  return IconButton(
     icon: Icon(Icons.more_vert, color: colorScheme.onSurface),
-    onSelected: (String value) {
-      if (value == 'settings') {
-        // Navigate to settings screen
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-      } else if (value == 'about') {
-        // Show about dialog
-        showAboutDialog(
-          context: context,
-          applicationName: "SpaceX Explorer",
-          applicationVersion: "1.0.0",
-          applicationLegalese: "© 2024 SpaceX Explorer",
-        );
-      }
-    },
-    itemBuilder:
-        (BuildContext context) => [
+    onPressed: () {
+      showMenu(
+        context: context,
+        position: RelativeRect.fromLTRB(
+          MediaQuery.of(context).size.width,
+          kToolbarHeight,
+          0,
+          0,
+        ),
+        items: [
           PopupMenuItem(
             value: 'settings',
-            child: Row(children: [SizedBox(width: 10), Text('Settings')]),
+            child: Text('Settings'),
+            onTap:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                ),
           ),
           PopupMenuItem(
             value: 'about',
-            child: Row(children: [SizedBox(width: 10), Text('About')]),
+            child: Text('About'),
+            onTap:
+                () => showAboutDialog(
+                  context: context,
+                  applicationName: "SpaceX Explorer",
+                  applicationVersion: "1.0.0",
+                  applicationLegalese: "© 2024 SpaceX Explorer",
+                ),
           ),
         ],
+      );
+    },
   );
 }

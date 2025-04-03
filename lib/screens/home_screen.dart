@@ -53,7 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        actions: [popMenu(colorScheme, context)],
+        actions: [
+          Builder(
+            builder: (context) {
+              return popMenu(colorScheme, context);
+            },
+          ),
+        ],
+
         backgroundColor: colorScheme.surface,
       ),
       body: Consumer<DataHandlerProvider>(
@@ -158,5 +165,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }
