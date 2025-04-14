@@ -27,6 +27,7 @@ class LandPad {
     required this.details,
   });
 
+
   factory LandPad.fromJson(Map<String, dynamic> json) {
     return LandPad(
       id: json['id'],
