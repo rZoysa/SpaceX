@@ -2,7 +2,13 @@
 
 A beautiful Flutter app that explores SpaceX rockets, launch pads, and landing pads — with live refresh, offline awareness, and a sleek UI.
 
-![screenshot](screenshots/home.png) <!-- Replace with your screenshot path -->
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/home.png" width="20%"/>
+  <img src="screenshots/setings.png" width="20%"/>
+  <img src="screenshots/about.png" width="20%"/>
+</p>
 
 ---
 
