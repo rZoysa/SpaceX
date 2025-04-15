@@ -36,9 +36,9 @@ A beautiful Flutter app that explores SpaceX rockets, launch pads, and landing p
 
 ## 🖼️ Screenshots
 
-| Rockets View | Launch Pads |
-|--------------|-------------|
-| ![rockets](screenshots/rockets.png) | ![launchpads](screenshots/launchpads.png) |
+| Rockets View | Launch Pads | Landing Pads |
+|--------------|-------------|-------------|
+| ![rockets](screenshots/rockets.png) | ![launchpads](screenshots/launchpads.png) | ![landingpads](screenshots/landpads.png) |
 
 ---
 
