@@ -6,7 +6,7 @@ A beautiful Flutter app that explores SpaceX rockets, launch pads, and landing p
 
 <p align="center">
   <img src="screenshots/home.png" width="20%"/>
-  <img src="screenshots/setings.png" width="20%"/>
+  <img src="screenshots/settings.png" width="20%"/>
   <img src="screenshots/about.png" width="20%"/>
 </p>
 
