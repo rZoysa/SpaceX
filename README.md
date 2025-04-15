@@ -26,6 +26,7 @@ A beautiful Flutter app that explores SpaceX rockets, launch pads, and landing p
 ## 🧠 Tech Stack
 
 - **Flutter** 💙
+- **MVC Architecture** for clean code separation
 - `provider` for state management
 - `connectivity_plus` for network status
 - `custom_refresh_indicator` for animated pull-to-refresh
@@ -39,6 +40,13 @@ A beautiful Flutter app that explores SpaceX rockets, launch pads, and landing p
 | Rockets View | Launch Pads | Landing Pads |
 |--------------|-------------|-------------|
 | ![rockets](screenshots/rockets.png) | ![launchpads](screenshots/launchpads.png) | ![landingpads](screenshots/landpads.png) |
+
+---
+
+## 🔌 API Source
+
+All data is powered by the awesome [SpaceX API](https://github.com/r-spacex/SpaceX-API) 🚀  
+REST endpoints are used to fetch real-time information about rockets, launch pads, and landing pads.
 
 ---
 
