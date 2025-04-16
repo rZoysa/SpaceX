@@ -55,5 +55,5 @@ REST endpoints are used to fetch real-time information about rockets, launch pad
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/rZoysa/spacex_explorer.git
+git clone https://github.com/rZoysa/SpaceX.git
 cd spacex_explorer
